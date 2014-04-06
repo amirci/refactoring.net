@@ -20,19 +20,22 @@ namespace Refactoring.Example6
 
         public IDictionary<int, IEnumerable<Movie>> Classify(IEnumerable<Movie> movies)
         {
-            var result = new Dictionary<int, IEnumerable<Movie>>();
+            IDictionary<int, IEnumerable<Movie>> hash = new Dictionary<int, IEnumerable<Movie>>();
 
-            foreach (var movie in movies)
-            {
-                if (!result.ContainsKey(movie.Review))
-                {
-                    result[movie.Review] = new List<Movie>();
-                }
+            return movies.Aggregate(hash, ClassifyMovie);
+        }
 
-                ((List<Movie>)result[movie.Review]).Add(movie);
-            }
+        private static IDictionary<int, IEnumerable<Movie>> ClassifyMovie(IDictionary<int, IEnumerable<Movie>> hash, Movie movie)
+        {
+            var collection = hash.ContainsKey(movie.Review) 
+                ? (ICollection<Movie>) hash[movie.Review] 
+                : new List<Movie>();
 
-            return result;
+            collection.Add(movie);
+
+            hash[movie.Review] = collection;
+
+            return hash;
         }
 
         public IEnumerable<Movie> Top3(IEnumerable<Movie> movies)
