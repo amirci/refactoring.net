@@ -43,6 +43,8 @@
     <Compile Include="Example2\WoodyAllenCriticScore.cs" />
     <Compile Include="Example3\BaconCriticScore.cs" />
     <Compile Include="Example4\AppDeployer.cs" />
+    <Compile Include="Example5\Movie.cs" />
+    <Compile Include="Example5\MovieSearcher.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
