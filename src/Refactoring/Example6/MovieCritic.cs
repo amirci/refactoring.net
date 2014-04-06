@@ -8,19 +8,14 @@ namespace Refactoring.Example6
     {
         public int Threshold { get; set; }
 
-        public bool AnyGoodOnes(IList<Movie> movies)
+        public bool AnyGoodOnes(IEnumerable<Movie> movies)
         {
-            var result = new List<Movie>();
+            return movies.Any(OverTheThreshold);
+        }
 
-            foreach (var movie in movies)
-            {
-                if (movie.Review >= this.Threshold)
-                {
-                    result.Add(movie);
-                }
-            }
-
-            return result.Count > 0;
+        private bool OverTheThreshold(Movie arg)
+        {
+            return arg.Review >= this.Threshold;
         }
 
         public IDictionary<int, IEnumerable<Movie>> Classify(IEnumerable<Movie> movies)
