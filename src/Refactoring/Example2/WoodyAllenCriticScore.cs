@@ -15,19 +15,12 @@
 
         public int FinalScore()
         {
-            var result = 1;
-
-            if (_isKnownLocally)
+            if (_isKnownLocally && _isKnownAbroad && _isNotWoodyAllen)
             {
-                if (_isKnownAbroad)
-                {
-                    if (_isNotWoodyAllen)
-                    {
-                        result = LocalScore() + AbroadScore();
-                    }
-                }
+                return LocalScore() + AbroadScore();
             }
-            return result;
+
+            return 1;
         }
 
         private static int LocalScore()
