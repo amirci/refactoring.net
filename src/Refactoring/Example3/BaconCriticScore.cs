@@ -13,17 +13,12 @@
 
         public int FinalScore()
         {
-            var result = 1;
-
-            if (_movieTitle.Contains("Bacon"))
+            if (!_movieTitle.Contains("Bacon") || _isWellKnown)
             {
-                if (_isWellKnown)
-                    result = 10;
+                return 10;
             }
-            else
-                result = 10;
 
-            return result;
+            return 1;
         }
     }
 }
