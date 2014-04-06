@@ -8,9 +8,13 @@ namespace Refactoring.Example5
         public IEnumerable<string> FindEndsWithAtor(IEnumerable<Movie> source)
         {
             return source
-                .Where(m => m.Title.EndsWith("ator"))
+                .Where(EndsWithAtor)
                 .Select(m => m.Title);
         }
 
+        private static bool EndsWithAtor(Movie m)
+        {
+            return m.Title.EndsWith("ator");
+        }
     }
 }
