@@ -10,5 +10,6 @@ namespace Refactoring.Example5
         }
 
         public string Title { get; private set; }
+        public int Review { get; set; }
     }
 }
