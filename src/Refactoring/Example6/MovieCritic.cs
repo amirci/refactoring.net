@@ -5,12 +5,7 @@ namespace Refactoring.Example6
 {
     public class MovieCritic
     {
-        public MovieCritic(int threshold)
-        {
-            this.Threshold = threshold;
-        }
-
-        public int Threshold { get; private set; }
+        public int Threshold { get; set; }
 
         public bool AnyGoodOnes(IList<Movie> movies)
         {
@@ -25,6 +20,23 @@ namespace Refactoring.Example6
             }
 
             return result.Count > 0;
+        }
+
+        public IDictionary<int, IEnumerable<Movie>> Classify(IEnumerable<Movie> movies)
+        {
+            var result = new Dictionary<int, IEnumerable<Movie>>();
+
+            foreach (var movie in movies)
+            {
+                if (!result.ContainsKey(movie.Review))
+                {
+                    result[movie.Review] = new List<Movie>();
+                }
+
+                ((List<Movie>)result[movie.Review]).Add(movie);
+            }
+
+            return result;
         }
     }
 }
