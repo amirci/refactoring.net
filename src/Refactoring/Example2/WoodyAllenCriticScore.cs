@@ -15,12 +15,17 @@
 
         public int FinalScore()
         {
-            if (_isKnownLocally && _isKnownAbroad && _isNotWoodyAllen)
+            if (WellKnowButNotWoody())
             {
                 return LocalScore() + AbroadScore();
             }
 
             return 1;
+        }
+
+        private bool WellKnowButNotWoody()
+        {
+            return _isKnownLocally && _isKnownAbroad && _isNotWoodyAllen;
         }
 
         private static int LocalScore()
