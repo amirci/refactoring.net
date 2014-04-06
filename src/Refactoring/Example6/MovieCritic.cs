@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Refactoring.Example5;
 
 namespace Refactoring.Example6
@@ -37,6 +38,15 @@ namespace Refactoring.Example6
             }
 
             return result;
+        }
+
+        public IEnumerable<Movie> Top3(IEnumerable<Movie> movies)
+        {
+            var sorted = movies.ToList();
+
+            sorted.Sort((m1, m2) => m2.Review - m1.Review);
+
+            return new[] {sorted[0], sorted[1], sorted[2]};
         }
     }
 }
