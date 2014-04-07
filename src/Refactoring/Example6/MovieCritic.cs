@@ -25,13 +25,9 @@ namespace Refactoring.Example6
                 .ToDictionary(g => g.Key, g => g.ToList().AsEnumerable());
         }
 
-        public IEnumerable<Movie> Top3(IEnumerable<Movie> movies)
+        public IEnumerable<Movie> Top(IEnumerable<Movie> movies, int count=3)
         {
-            var sorted = movies.ToList();
-
-            sorted.Sort((m1, m2) => m2.Review - m1.Review);
-
-            return new[] {sorted[0], sorted[1], sorted[2]};
+            return movies.OrderByDescending(m => m.Review).Take(count);
         }
     }
 }

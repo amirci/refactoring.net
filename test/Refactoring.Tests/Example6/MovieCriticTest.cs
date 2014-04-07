@@ -29,7 +29,15 @@ namespace Refactoring.Tests.Example6
             [Test]
             public void When_getting_the_top_five_movies()
             {
-                var actual = this.Critic.Top3(this.movies);
+                var actual = this.Critic.Top(this.movies, 5);
+
+                actual.Should().BeEquivalentTo(movies[3], movies[4], movies[1], movies[0], movies[2]);
+            }
+
+            [Test]
+            public void When_getting_the_top_default_movies()
+            {
+                var actual = this.Critic.Top(this.movies);
 
                 actual.Should().BeEquivalentTo(movies[3], movies[4], movies[1]);
             }
