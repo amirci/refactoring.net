@@ -22,6 +22,16 @@
             return result + InternationalScore();
         }
 
+        public int FinalScore2()
+        {
+            var result = 1;
+
+            if (_isKnownAbroad) result = LocalScore();
+            if (_isWellKnown) result += InternationalScore();
+            
+            return result;
+        }
+
         private static int InternationalScore()
         {
             return 10;
