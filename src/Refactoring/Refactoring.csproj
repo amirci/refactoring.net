@@ -47,6 +47,8 @@
     <Compile Include="Example5\MovieSearcher.cs" />
     <Compile Include="Example6\MovieCritic.cs" />
     <Compile Include="Example7\MovieReporter.cs" />
+    <Compile Include="Example8\MovieRent.cs" />
+    <Compile Include="Example8\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup />
