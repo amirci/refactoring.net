@@ -52,7 +52,7 @@
     <Compile Include="Example5\MovieSearcherTest.cs" />
     <Compile Include="Example6\MovieCriticTest.cs" />
     <Compile Include="Example7\MovieReporterTest.cs" />
-    <Compile Include="Example8\Class1.cs" />
+    <Compile Include="Example8\MovieRentTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
