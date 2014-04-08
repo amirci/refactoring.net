@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace Refactoring.Example4
 {
@@ -6,14 +7,7 @@ namespace Refactoring.Example4
     {
         public IEnumerable<string> Deploy(IEnumerable<string> environments)
         {
-            var result = new List<string>();
-
-            foreach (var target in environments)
-            {
-                result.Add("Deployed to " + target);   
-            }
-
-            return result;
+            return environments.Select(target => "Deployed to " + target);
         }
     }
 
