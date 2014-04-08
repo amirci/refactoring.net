@@ -8,45 +8,26 @@ namespace Refactoring.Example6
     {
         public int Threshold { get; set; }
 
-        public bool AnyGoodOnes(IList<Movie> movies)
+        public bool AnyGoodOnes(IEnumerable<Movie> movies)
         {
-            var result = new List<Movie>();
+            return movies.Any(OverTheThreshold);
+        }
 
-            foreach (var movie in movies)
-            {
-                if (movie.Review >= this.Threshold)
-                {
-                    result.Add(movie);
-                }
-            }
-
-            return result.Count > 0;
+        private bool OverTheThreshold(Movie arg)
+        {
+            return arg.Review >= this.Threshold;
         }
 
         public IDictionary<int, IEnumerable<Movie>> Classify(IEnumerable<Movie> movies)
         {
-            var result = new Dictionary<int, IEnumerable<Movie>>();
-
-            foreach (var movie in movies)
-            {
-                if (!result.ContainsKey(movie.Review))
-                {
-                    result[movie.Review] = new List<Movie>();
-                }
-
-                ((List<Movie>)result[movie.Review]).Add(movie);
-            }
-
-            return result;
+            return movies
+                .GroupBy(m => m.Review)
+                .ToDictionary(g => g.Key, g => g.ToList().AsEnumerable());
         }
 
-        public IEnumerable<Movie> Top3(IEnumerable<Movie> movies)
+        public IEnumerable<Movie> Top(IEnumerable<Movie> movies, int count=3)
         {
-            var sorted = movies.ToList();
-
-            sorted.Sort((m1, m2) => m2.Review - m1.Review);
-
-            return new[] {sorted[0], sorted[1], sorted[2]};
+            return movies.OrderByDescending(m => m.Review).Take(count);
         }
     }
 }
