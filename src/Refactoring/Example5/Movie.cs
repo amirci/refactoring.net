@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿using System;
 
 namespace Refactoring.Example5
 {
@@ -11,5 +11,6 @@ namespace Refactoring.Example5
 
         public string Title { get; private set; }
         public int Review { get; set; }
+        public DateTime? ReleaseDate { get; set; } 
     }
 }
