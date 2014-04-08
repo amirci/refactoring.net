@@ -30,12 +30,7 @@ namespace Refactoring.Tests.Example7
 
                 var actual = this.Subject.MoviesReleased();
 
-                var expected = new List<string>();
-
-                foreach (var movie in movies)
-                {
-                    expected.Add(movie.Title);
-                }
+                var expected = new[] {"The Matrix"};
 
                 actual.Should().BeEquivalentTo(expected);
             }

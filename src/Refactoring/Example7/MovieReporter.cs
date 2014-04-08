@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Refactoring.Example5;
 
 namespace Refactoring.Example7
@@ -19,27 +20,10 @@ namespace Refactoring.Example7
 
         public IEnumerable<string> MoviesReleased()
         {
-            var result = new List<string>();
-
-            var matching = new List<Movie>();
-
-            foreach (var movie in _movies)
-            {
-                if (movie.ReleaseDate.HasValue)
-                {
-                    if (movie.ReleaseDate.Value >= _startDate && movie.ReleaseDate.Value <= _endDate)
-                    {
-                        matching.Add(movie);
-                    }
-                }
-            }
-
-            foreach (var movie in _movies)
-            {
-                result.Add(movie.Title);
-            }
-
-            return result;
+            return this._movies
+                .Where(m => m.ReleaseDate.HasValue)
+                .Where(movie => movie.ReleaseDate.Value >= _startDate && movie.ReleaseDate.Value <= _endDate)
+                .Select(m => m.Title);
         } 
 
     }
