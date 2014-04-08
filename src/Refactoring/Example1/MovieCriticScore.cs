@@ -13,16 +13,22 @@
 
         public int FinalScore()
         {
+            if (!_isWellKnown) return 1;
+
+            var result = LocalScore();
+
+            if (!_isKnownAbroad) return result;
+
+            return result + InternationalScore();
+        }
+
+        public int FinalScore2()
+        {
             var result = 1;
 
-            if (_isWellKnown)
-            {
-                result = LocalScore();
-                if (_isKnownAbroad)
-                {
-                    result += InternationalScore();
-                }
-            }
+            if (_isKnownAbroad) result = LocalScore();
+            if (_isWellKnown) result += InternationalScore();
+            
             return result;
         }
 
