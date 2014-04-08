@@ -20,11 +20,18 @@ namespace Refactoring.Example7
 
         public IEnumerable<string> MoviesReleased()
         {
-            return this._movies
-                .Where(m => m.ReleaseDate.HasValue)
-                .Where(movie => movie.ReleaseDate.Value >= _startDate && movie.ReleaseDate.Value <= _endDate)
-                .Select(m => m.Title);
-        } 
+            return MoviesInRange().Select(m => m.Title);
+        }
 
+        private IEnumerable<Movie> MoviesInRange()
+        {
+            return this._movies
+                .Where(m => m.ReleaseDate.HasValue && IsInRange(m.ReleaseDate.Value, _startDate, _endDate));
+        }
+
+        private static bool IsInRange(DateTime date, DateTime startDate, DateTime endDate)
+        {
+            return date >= startDate && date <= endDate;
+        }
     }
 }
