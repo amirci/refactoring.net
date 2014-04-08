@@ -13,31 +13,17 @@ namespace Refactoring.Example8
         {
             _movie = movie;
             _start = start;
-            _user = user;
+            _user = user ?? new NullUser();
         }
 
         public string UserName()
         {
-            if (_user != null)
-            {
-                return _user.Name;
-            }
-            else
-            {
-                return "n/a";
-            }
+            return _user.Name;
         }
 
         public string UserPhoneNumber()
         {
-            if (_user != null)
-            {
-                return _user.PhoneNumber;
-            }
-            else
-            {
-                return "n/a";
-            }
+            return _user.PhoneNumber;
         }
     }
 }
