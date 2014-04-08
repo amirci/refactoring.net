@@ -1,5 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Linq;
 using Refactoring.Example5;
 
 namespace Refactoring.Example7
@@ -7,40 +7,27 @@ namespace Refactoring.Example7
     public class MovieReporter
     {
         private readonly IEnumerable<Movie> _movies;
-        private readonly DateTime _startDate;
-        private readonly DateTime _endDate;
+        private readonly DateRange _range;
 
-        public MovieReporter(IEnumerable<Movie> movies, DateTime startDate, DateTime endDate)
+        public MovieReporter(IEnumerable<Movie> movies, DateRange _range)
         {
             _movies = movies;
-            _startDate = startDate;
-            _endDate = endDate;
+            this._range = _range;
         }
 
         public IEnumerable<string> MoviesReleased()
         {
-            var result = new List<string>();
+            return MoviesInRange().Select(m => m.Title);
+        }
 
-            var matching = new List<Movie>();
+        private IEnumerable<Movie> MoviesInRange()
+        {
+            return this._movies.Where(IsInRange);
+        }
 
-            foreach (var movie in _movies)
-            {
-                if (movie.ReleaseDate.HasValue)
-                {
-                    if (movie.ReleaseDate.Value >= _startDate && movie.ReleaseDate.Value <= _endDate)
-                    {
-                        matching.Add(movie);
-                    }
-                }
-            }
-
-            foreach (var movie in _movies)
-            {
-                result.Add(movie.Title);
-            }
-
-            return result;
-        } 
-
+        private bool IsInRange(Movie m)
+        {
+            return m.ReleaseDate.HasValue && this._range.Include(m.ReleaseDate.Value);
+        }
     }
 }

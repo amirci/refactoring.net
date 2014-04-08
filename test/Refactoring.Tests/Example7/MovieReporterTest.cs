@@ -1,13 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using FluentAssertions;
 using NUnit.Framework;
 using Refactoring.Example5;
 using Refactoring.Example7;
 
 namespace Refactoring.Tests.Example7
 {
-    class MovieReporterTest
+     class MovieReporterTest
     {
         protected MovieReporter Subject { get; set; }
 
@@ -23,22 +22,23 @@ namespace Refactoring.Tests.Example7
 
         public class MoviesReleasedInMethod : MovieReporterTest
         {
-            [Test]
-            public void When_listing_movies_in_the_90s()
+            private readonly IDictionary<string, DateRange> _eras = new Dictionary<string, DateRange>
             {
-                this.Subject = new MovieReporter(movies, new DateTime(1990, 1, 1), new DateTime(2000, 1, 1));
+                {"70s", new DateRange(new DateTime(1970, 1, 1), new DateTime(1980, 1, 1))},
+                {"80s", new DateRange(new DateTime(1980, 1, 1), new DateTime(1990, 1, 1))},
+                {"90s", new DateRange(new DateTime(1990, 1, 1), new DateTime(2000, 1, 1))},
+            };
 
-                var actual = this.Subject.MoviesReleased();
+            [TestCase("70s", Result = new[] { "Blazing Saddles" })]
+            [TestCase("80s", Result = new[] { "Terminator", "Spaceballs" })]
+            [TestCase("90s", Result = new[] { "The Matrix" })]
+            public IEnumerable<string> When_listing_movies_in_the(string era)
+            {
+                this.Subject = new MovieReporter(movies, this._eras[era]);
 
-                var expected = new List<string>();
-
-                foreach (var movie in movies)
-                {
-                    expected.Add(movie.Title);
-                }
-
-                actual.Should().BeEquivalentTo(expected);
+                return this.Subject.MoviesReleased();
             }
+
         }
 
     }
