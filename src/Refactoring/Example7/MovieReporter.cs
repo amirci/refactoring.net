@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Refactoring.Example5;
 
@@ -8,14 +7,12 @@ namespace Refactoring.Example7
     public class MovieReporter
     {
         private readonly IEnumerable<Movie> _movies;
-        private readonly DateTime _startDate;
-        private readonly DateTime _endDate;
+        private readonly DateRange _range;
 
-        public MovieReporter(IEnumerable<Movie> movies, DateTime startDate, DateTime endDate)
+        public MovieReporter(IEnumerable<Movie> movies, DateRange _range)
         {
             _movies = movies;
-            _startDate = startDate;
-            _endDate = endDate;
+            this._range = _range;
         }
 
         public IEnumerable<string> MoviesReleased()
@@ -25,13 +22,12 @@ namespace Refactoring.Example7
 
         private IEnumerable<Movie> MoviesInRange()
         {
-            return this._movies
-                .Where(m => m.ReleaseDate.HasValue && IsInRange(m.ReleaseDate.Value, _startDate, _endDate));
+            return this._movies.Where(IsInRange);
         }
 
-        private static bool IsInRange(DateTime date, DateTime startDate, DateTime endDate)
+        private bool IsInRange(Movie m)
         {
-            return date >= startDate && date <= endDate;
+            return m.ReleaseDate.HasValue && this._range.Include(m.ReleaseDate.Value);
         }
     }
 }
